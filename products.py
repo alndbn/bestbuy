@@ -1,15 +1,15 @@
 class Product: #Class definition
     def __init__(self, name, price, quantity): #initialization
-        if name == "":
-            raise Exception("Name cannot be empty")
-        if price < 0:
-            raise Exception("Price cannot be negative")
-        if quantity < 0:
-            raise Exception("Quantity cannot be negative")
+        if name == "" or not isinstance(name, str):
+            raise Exception("Name cannot be empty or has to be instance of string")
+        if price < 0 or not isinstance(price, (int, float)):
+            raise Exception("Price cannot be negative or has to be instance of integer or float")
+        if quantity < 0 or not isinstance(quantity, int):
+            raise Exception("Quantity cannot be negative or has to be instance of integer or float")
         #static and dynamic Instance variable:
         self.name = name
         self.price = price
-        self. quantity = quantity
+        self.quantity = quantity  #self.quantity = Mac, quantity = 3(Anzahl)->Eigenschaft
         self.active = True
 
 
@@ -51,10 +51,13 @@ class Product: #Class definition
             raise Exception("Product is not active")
         if self.quantity < quantity: #self.quantity = in Stock, quantity = purchase quantity
             raise Exception("Product is out of stock")
+        if not isinstance(quantity, int):
+            raise Exception("Quantity must be an integer")
+        if quantity <= 0:
+            raise Exception("Quantity must be positive")
         total_price = self.price * quantity
         self.quantity -= quantity
         if self.quantity == 0:
             self.deactivate()
         return total_price
-
 
