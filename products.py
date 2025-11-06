@@ -6,7 +6,7 @@ class Product: #Class definition
             raise Exception("Price cannot be negative or has to be instance of integer or float")
         if quantity < 0 or not isinstance(quantity, int):
             raise Exception("Quantity cannot be negative or has to be instance of integer or float")
-        #static and dynamic Instance variable:
+        #static and dynamic Instance variable and parameter:
         self.name = name
         self.price = price
         self.quantity = quantity  #self.quantity = Mac, quantity = 3(Anzahl)->Eigenschaft
