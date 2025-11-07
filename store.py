@@ -2,7 +2,7 @@ from products import Product
 
 class Store:
     def __init__(self, products):        #initializatio
-    #instance variable   parameter
+    #instance variable - parameter
         self.products = products #self.products -> data type lst[]
 
     def add_product(self, product):
