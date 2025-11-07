@@ -1,11 +1,11 @@
 class Product: #Class definition
     def __init__(self, name, price, quantity): #initialization
-        if name == "" or not isinstance(name, str):
+        if  not isinstance(name, str) or not name:
             raise Exception("Name cannot be empty or has to be instance of string")
-        if price < 0 or not isinstance(price, (int, float)):
-            raise Exception("Price cannot be negative or has to be instance of integer or float")
-        if quantity < 0 or not isinstance(quantity, int):
-            raise Exception("Quantity cannot be negative or has to be instance of integer or float")
+        if not isinstance(price, (int, float)) or price < 0:
+            raise Exception("Price must be a positive number (int or float)")
+        if not isinstance(quantity, int) or quantity < 0:
+            raise Exception("Quantity must be a non-negative integer")
         #static and dynamic Instance variable and parameter:
         self.name = name
         self.price = price
