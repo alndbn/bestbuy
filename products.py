@@ -1,16 +1,22 @@
 class Product: #Class definition
     def __init__(self, name, price, quantity): #initialization
-        if  not isinstance(name, str) or not name:
-            raise Exception("Name cannot be empty or has to be instance of string")
-        if not isinstance(price, (int, float)) or price < 0:
-            raise Exception("Price must be a positive number (int or float)")
-        if not isinstance(quantity, int) or quantity < 0:
-            raise Exception("Quantity must be a non-negative integer")
+        if  not isinstance(name, str):
+            raise TypeError("Name must be string.")
+        if not name:
+            raise ValueError("Name cannot be empty.")
+        if not isinstance(price, (int, float)):
+            raise TypeError("Price must be int or float.")
+        if price < 0:
+            raise Exception("Price must be a positive number.")
+        if not isinstance(quantity, int):
+            raise TypeError("Quantity must be int.")
+        if quantity < 0:
+            raise ValueError("Quantity must be a non-negative integer")
         #static and dynamic Instance variable and parameter:
         self.name = name
         self.price = price
         self.quantity = quantity  #self.quantity = Mac, quantity = 3(Anzahl)->Eigenschaft
-        self.active = True
+        self.active = (self.quantity > 0)
 
 
     def get_quantity(self) -> int:
@@ -19,11 +25,19 @@ class Product: #Class definition
 
     def set_quantity(self, quantity):
         """sets a new quantity, raise Exception if quantitie is negative, if quantity reaches 0, product becomes inactive"""
-        if self.quantity < 0:
-            raise Exception("Quantity cannot be negative")
+        if not isinstance(quantity, int):
+            raise TypeError("Quantity must be int")
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
         self.quantity = quantity
         if self.quantity == 0:
             self.deactivate()
+        self.quantity = quantity
+        if self.quantity == 0:
+            self.deactivate()
+        else:
+            self.activate()
+
 
     def is_active(self) -> bool:
         """returns a boolean True when product is active, otherwise False"""
@@ -47,14 +61,16 @@ class Product: #Class definition
         calculates the total price and updates the stock,
         deactivates the product if the stock reaches zero,
         returns the total price"""
-        if self.active == False:
-            raise Exception("Product is not active")
-        if self.quantity < quantity: #self.quantity = in Stock, quantity = purchase quantity
-            raise Exception("Product is out of stock")
-        if not isinstance(quantity, int):
-            raise Exception("Quantity must be an integer")
+        if not self.active:
+            raise ValueError("Product is not active.")
+        if not isinstance(quantity, int): #self.quantity = in Stock, quantity = purchase quantity
+            raise TypeError("Quantity must be int.")
         if quantity <= 0:
-            raise Exception("Quantity must be positive")
+            raise ValueError("Quantity must be positive")
+        if self.quantity < quantity:
+            raise ValueError("Not enough stock")
+
+
         total_price = self.price * quantity
         self.quantity -= quantity
         if self.quantity == 0:
