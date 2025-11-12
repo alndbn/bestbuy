@@ -2,7 +2,7 @@ from products import Product
 
 class Store:
     def __init__(self, products):        #initializatio
-        if not isinstance(products, list)
+        if not isinstance(products, list):
             raise TypeError("Products must be a list")
         for p in products:
             if not isinstance(p, Product):
